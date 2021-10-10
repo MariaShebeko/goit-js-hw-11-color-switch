@@ -1,0 +1,39 @@
+const colors = [
+  "#FFFFFF",
+  "#2196F3",
+  "#4CAF50",
+  "#FF9800",
+  "#009688",
+  "#795548",
+];
+
+const refs = {
+  body: document.querySelector("body"),
+  start: document.querySelector('[data-action="start"]'),
+  stop: document.querySelector('[data-action="stop"]'),
+};
+
+refs.start.addEventListener("click", onStartPress);
+refs.stop.addEventListener("click", onStopPress);
+let timerId = null;
+
+const randomIntegerFromInterval = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+function onStartPress() {
+  timerId = setInterval(changeBgColor, 1000);
+  refs.start.disabled = true;
+  refs.start.style.opacity = "0.5";
+}
+
+function onStopPress() {
+  clearInterval(timerId);
+  refs.start.disabled = false;
+  refs.start.style.opacity = "1";
+}
+
+function changeBgColor() {
+  refs.body.style.backgroundColor =
+    colors[randomIntegerFromInterval(0, colors.length - 1)];
+}
